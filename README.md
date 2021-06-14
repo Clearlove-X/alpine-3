@@ -7,4 +7,4 @@ From golang:1.14-alpine 和 registry.cn-hangzhou.aliyuncs.com/hxly/gitea:alpine-
 
 To   registry.cn-hangzhou.aliyuncs.com/hxly/gitea:1.13.0.3
 
-# 海外机器连国内源有时候很慢
+### 海外机器连国内源有时候很慢
