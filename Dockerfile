@@ -21,9 +21,7 @@ RUN cd /tmp;\
     tar -zxvf openssl-1.1.1g.tar.gz;\
     cd openssl-1.1.1g;\
     ./config --prefix=/usr/local/ssl -d shared;\
-    make && make install;\
-    echo '/usr/local/ssl/lib' >> /etc/ld.so.conf;\
-    ldconfig -v;
+    make && make install;
 #安装openssh  
 RUN cd /tmp;\
     tar zxvf openssh-8.4p1.tar.gz;\
