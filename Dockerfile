@@ -38,8 +38,8 @@ RUN cd /tmp;\
     cp /usr/local/openssh/etc/ssh_host_ecdsa_key.pub /etc/ssh/ssh_host_ecdsa_key.pub;\
     ssh -V;\
     rm -rf /tmp/openssh-8.4p1;\
-    rm -rf /tmp/openssl-1.1.1g.tar.gz;\
-    rm -rf /tmp/zlib-1.2.11.tar.gz;\
+    rm -rf /tmp/openssl-1.1.1g;\
+    rm -rf /tmp/zlib-1.2.11;\
     rm /tmp/zlib-1.2.11.tar.gz;\
     rm /tmp/openssl-1.1.1g.tar.gz;\
     rm /tmp/openssh-8.4p1.tar.gz;
