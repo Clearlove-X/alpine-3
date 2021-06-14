@@ -4,7 +4,7 @@ RUN set -ex;\
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
     apk add --no-cache build-base git nodejs npm;
 WORKDIR /tmp
-ARG GITEA_VERSION
+ARG GITEA_VERSION=v1.13.0.3
 # Ref: https://docs.gitea.io/en-us/install-from-source/
 RUN set -ex;\
     git clone https://gitee.com/klaywang/gitea.git  gitea;
