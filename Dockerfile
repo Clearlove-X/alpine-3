@@ -32,6 +32,18 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/re
     sqlite \
     su-exec \
     tzdata
+RUN addgroup \
+    -S -g 1000 \
+    git && \
+  adduser \
+    -S -H -D \
+    -h /data/git \
+    -s /bin/bash \
+    -u 1000 \
+    -G git \
+    git && \
+  echo "git:$(dd if=/dev/urandom bs=24 count=1 status=none | base64)" | chpasswd
+ENV USER git
 ENV GITEA_CUSTOM=/data/gitea
 
 ENTRYPOINT ["/sbin/tini","--","/usr/bin/entrypoint"]
