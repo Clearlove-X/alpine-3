@@ -16,7 +16,7 @@ RUN set -ex;\
     ls -l;\
     cp gitea /;
 
-FROM registry.cn-hangzhou.aliyuncs.com/hxly/gitea:alpine-with-openssh8.4
+FROM registry.cn-hangzhou.aliyuncs.com/hxly/gitea:alpine-with-openssh8.6
 LABEL maintainer="wangyutang@inspur.com"
 EXPOSE 22 3000
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
