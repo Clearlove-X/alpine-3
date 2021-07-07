@@ -1,7 +1,6 @@
 # build frrm source
 FROM golang:1.14-alpine AS installer
 RUN set -ex;\
-    sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
     apk add --no-cache build-base git nodejs npm;
 WORKDIR /tmp
 ARG GITEA_VERSION=1.13.0.1
@@ -19,8 +18,7 @@ RUN set -ex;\
 FROM registry.cn-hangzhou.aliyuncs.com/hxly/gitea:alpine-with-openssh8.6
 LABEL maintainer="wangyutang@inspur.com"
 EXPOSE 22 3000
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
-    apk --no-cache add \
+RUN apk --no-cache add \
     bash \
     ca-certificates \
     curl \
