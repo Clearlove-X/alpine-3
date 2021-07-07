@@ -1,8 +1,7 @@
 FROM registry.cn-hangzhou.aliyuncs.com/hxly/inspur-alpine-3.10:5.0.0
 LABEL maintainer="wangyutang@inspur.com"
 EXPOSE 22 3000
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
-    apk update;\
+RUN apk update;\
     apk add \
     build-base\
     perl\
