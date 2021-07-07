@@ -17,5 +17,6 @@ COPY --from=installer /usr/local/openssh/bin/ssh-keygen /usr/bin/ssh-keygen
 COPY --from=installer /usr/local/openssh/bin/ssh-keyscan /usr/bin/ssh-keyscan
 COPY --from=installer /usr/local/openssh/sbin/sshd /usr/sbin/sshd
 COPY --from=installer /usr/local/openssh/etc/sshd_config /etc/ssh/sshd_config
+COPY --from=installer /usr/local/openssh/etc/sshd_config /usr/local/openssh/etc/sshd_config
 COPY --from=installer /usr/local/openssh/etc/ssh_host_ecdsa_key.pub /etc/ssh/ssh_host_ecdsa_key.pub
 
