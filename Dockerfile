@@ -1,16 +1,14 @@
 # build frrm source
 FROM golang:1.14-alpine AS installer
 RUN set -ex;\
-    sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
     apk add --no-cache build-base git nodejs npm;
 WORKDIR /tmp
 ARG GITEA_VERSION=1.13.0
 # Ref: https://docs.gitea.io/en-us/install-from-source/
 RUN set -ex;\
-    git clone https://gitee.com/klaywang/gitea2.git -b v1.13.0.1  gitea;
+    git clone https://github.com/go-gitea/gitea.git -b v1.13.0  gitea;
 WORKDIR /tmp/gitea
 RUN set -ex;\
-    npm config set registry https://registry.npm.taobao.org;\
     TAGS="bindata" make build;
 RUN set -ex;\
     ls -l;\
@@ -19,8 +17,7 @@ RUN set -ex;\
 FROM registry.cn-hangzhou.aliyuncs.com/hxly/inspur-alpine-3.10:5.0.0
 LABEL maintainer="wangyutang@inspur.com"
 EXPOSE 22 3000
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
-    apk --no-cache add \
+RUN apk --no-cache add \
     bash \
     ca-certificates \
     curl \
