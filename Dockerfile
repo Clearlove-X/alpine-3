@@ -1,42 +1,19 @@
 # build frrm source
-FROM golang:1.14-alpine AS installer
-RUN set -ex;\
-    sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
-    apk add --no-cache build-base git nodejs npm;
-WORKDIR /tmp
-ARG GITEA_VERSION=1.13.0.1
-# Ref: https://docs.gitea.io/en-us/install-from-source/
-RUN set -ex;\
-    git clone https://gitee.com/klaywang/gitea2.git -b v1.13.0.1  gitea;
-WORKDIR /tmp/gitea
-RUN set -ex;\
-    npm config set registry https://registry.npm.taobao.org;\
-    TAGS="bindata" make build;
-RUN set -ex;\
-    ls -l;\
-    cp gitea /;
+FROM registry.cn-hangzhou.aliyuncs.com/hxly/gitea:alpine-with-openssh8.6 AS installer
+RUN  ls /usr/local/openssh/bin;\
+     ls /usr/local/openssh/sbin;
 
-FROM registry.cn-hangzhou.aliyuncs.com/hxly/gitea:alpine-with-openssh8.4
+
+FROM registry.cn-hangzhou.aliyuncs.com/hxly/gitea:3.12.0
 LABEL maintainer="wangyutang@inspur.com"
-EXPOSE 22 3000
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories;\
-    apk --no-cache add \
-    bash \
-    ca-certificates \
-    curl \
-    gettext \
-    git \
-    linux-pam \
-    s6 \
-    sqlite \
-    su-exec \
-    tzdata
-ENV GITEA_CUSTOM=/data/gitea
 
-ENTRYPOINT ["/sbin/tini","--","/usr/bin/entrypoint"]
-CMD ["/app/gitea/gitea"]
 
-COPY --from=installer /tmp/gitea/docker/root /
-COPY --from=installer /gitea /app/gitea/gitea
-RUN ln -s /app/gitea/gitea /usr/local/bin/gitea;\
-    chmod +x /usr/bin/entrypoint;
+COPY --from=installer /usr/local/openssh/bin/scp /usr/bin/scp
+COPY --from=installer /usr/local/openssh/bin/sftp /usr/bin/sftp
+COPY --from=installer /usr/local/openssh/bin/ssh /usr/bin/ssh
+COPY --from=installer /usr/local/openssh/bin/ssh-add /usr/bin/ssh-add
+COPY --from=installer /usr/local/openssh/bin/ssh-agent /usr/bin/ssh-agent
+COPY --from=installer /usr/local/openssh/bin/ssh-keygen /usr/bin/ssh-keygen
+COPY --from=installer /usr/local/openssh/bin/ssh-keyscan /usr/bin/ssh-keyscan
+COPY --from=installer /usr/local/openssh/sbin/sshd /usr/sbin/sshd
+
