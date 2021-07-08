@@ -1,5 +1,5 @@
 # build frrm source
-FROM gitea/gitea:1.13.0
+FROM gitea/gitea:1.14.4
 LABEL maintainer="wangyutang@inspur.com"
 
 
