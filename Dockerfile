@@ -7,6 +7,7 @@ RUN apk update;\
     gcc\
     g++\
     perl\
+    make\
     linux-headers
  
 COPY zlib-1.2.11.tar.gz  /tmp/
